@@ -1,0 +1,144 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_a",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_b",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "A",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "B",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "x0",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "deltaY",
+						"type": "uint256"
+					}
+				],
+				"name": "getAmountOut",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "deltaX",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "x0",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "deltaX",
+						"type": "uint256"
+					}
+				],
+				"name": "getFundsReceived",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "deltaY",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"BondingCurve.sol": "BondingCurve"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"BondingCurve.sol": {
+			"keccak256": "0x08e531fb6f730576b33ce977abf8315c366efb14d7aa8754f569219de3790684",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f6d6c3e8fe6ac963225092e4833d2bc368230687a5996b9bd3dbc0506f51eadd",
+				"dweb:/ipfs/QmchkqpiVvDGrY7TJ7SHsQHmm2qKxezYBxyCWsw9A1HH6q"
+			]
+		},
+		"FixedPointMathLib.sol": {
+			"keccak256": "0xf8b297d1981800babe4a190884627698cba92cacb3923f20ccbf37d96bb79497",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://35d56a515105002ed93cdbdb0c1577db839d3f2a3dd9bc0f87b6229a97a90464",
+				"dweb:/ipfs/QmU2EsPQKHQTzPU2GQ9hqTppkdAvi4AAiSJWNuo9B7HANb"
+			]
+		}
+	},
+	"version": 1
+}

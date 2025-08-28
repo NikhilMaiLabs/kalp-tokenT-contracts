@@ -1,0 +1,185 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "DivFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "DivWadFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "ExpOverflow",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "FactorialOverflow",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "FullMulDivFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "LnWadUndefined",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "MantissaOverflow",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "MulDivFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "MulWadFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "OutOfDomain",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "RPowOverflow",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "SDivWadFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "SMulWadFailed",
+				"type": "error"
+			}
+		],
+		"devdoc": {
+			"author": "Solady (https://github.com/vectorized/solady/blob/main/src/utils/FixedPointMathLib.sol)Modified from Solmate (https://github.com/transmissions11/solmate/blob/main/src/utils/FixedPointMathLib.sol)",
+			"errors": {
+				"DivFailed()": [
+					{
+						"details": "The division failed, as the denominator is zero."
+					}
+				],
+				"DivWadFailed()": [
+					{
+						"details": "The operation failed, either due to a multiplication overflow, or a division by a zero."
+					}
+				],
+				"ExpOverflow()": [
+					{
+						"details": "The operation failed, as the output exceeds the maximum value of uint256."
+					}
+				],
+				"FactorialOverflow()": [
+					{
+						"details": "The operation failed, as the output exceeds the maximum value of uint256."
+					}
+				],
+				"FullMulDivFailed()": [
+					{
+						"details": "The full precision multiply-divide operation failed, either due to the result being larger than 256 bits, or a division by a zero."
+					}
+				],
+				"LnWadUndefined()": [
+					{
+						"details": "The output is undefined, as the input is less-than-or-equal to zero."
+					}
+				],
+				"MantissaOverflow()": [
+					{
+						"details": "The mantissa is too big to fit."
+					}
+				],
+				"MulDivFailed()": [
+					{
+						"details": "The operation failed, either due to a multiplication overflow, or a division by a zero."
+					}
+				],
+				"MulWadFailed()": [
+					{
+						"details": "The operation failed, due to an multiplication overflow."
+					}
+				],
+				"OutOfDomain()": [
+					{
+						"details": "The input outside the acceptable domain."
+					}
+				],
+				"RPowOverflow()": [
+					{
+						"details": "The operation failed, due to an overflow."
+					}
+				],
+				"SDivWadFailed()": [
+					{
+						"details": "The operation failed, either due to a multiplication overflow, or a division by a zero."
+					}
+				],
+				"SMulWadFailed()": [
+					{
+						"details": "The operation failed, due to an multiplication overflow."
+					}
+				]
+			},
+			"kind": "dev",
+			"methods": {},
+			"stateVariables": {
+				"WAD": {
+					"details": "The scalar of ETH and most ERC20s."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"notice": "Arithmetic library with operations for fixed-point numbers.",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"FixedPointMathLib.sol": "FixedPointMathLib"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"FixedPointMathLib.sol": {
+			"keccak256": "0xf8b297d1981800babe4a190884627698cba92cacb3923f20ccbf37d96bb79497",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://35d56a515105002ed93cdbdb0c1577db839d3f2a3dd9bc0f87b6229a97a90464",
+				"dweb:/ipfs/QmU2EsPQKHQTzPU2GQ9hqTppkdAvi4AAiSJWNuo9B7HANb"
+			]
+		}
+	},
+	"version": 1
+}
