@@ -97,13 +97,67 @@
 			}
 		],
 		"devdoc": {
+			"details": "Exponential bonding curve implementation for dynamic token pricing  This contract implements an exponential bonding curve with the formula: Price(x) = A * e^(B * x)  Where: - x = current token supply - A = base price multiplier (scaling factor) - B = growth rate parameter (steepness of curve) - e = Euler's number (~2.718)  Key properties: - Price increases exponentially as more tokens are minted - Early buyers get lower prices, later buyers pay premium - Creates natural price discovery and liquidity incentives - Mathematically ensures continuous liquidity",
 			"kind": "dev",
-			"methods": {},
+			"methods": {
+				"constructor": {
+					"details": "These parameters are immutable once set and define the curve shape",
+					"params": {
+						"_a": "Base price multiplier (A parameter)",
+						"_b": "Growth rate coefficient (B parameter)"
+					}
+				},
+				"getAmountOut(uint256,uint256)": {
+					"details": "Solves inverse problem: given deltaY (ETH), find deltaX (tokens)  Mathematical approach: 1. Start with: deltaY = (A/B) * (e^(B*x0) - e^(B*x1)) 2. Rearrange: e^(B*x1) = e^(B*x0) - (deltaY*B/A) 3. Solve for x1: x1 = ln(e^(B*x0) - (deltaY*B/A)) / B 4. Calculate deltaX = x1 - x0 ",
+					"params": {
+						"deltaY": "Amount of ETH being spent",
+						"x0": "Current token supply before purchase"
+					},
+					"returns": {
+						"deltaX": "Number of tokens that can be purchased  Example: If spending 1 ETH when supply is 5000: - Calculates new supply x1 after purchase - Returns deltaX = x1 - x0 (tokens received)"
+					}
+				},
+				"getFundsReceived(uint256,uint256)": {
+					"details": "Implements integration of exponential curve: ∫[x1 to x0] A*e^(B*x) dx  Mathematical derivation: - Integral of A*e^(B*x) = (A/B) * e^(B*x) - Area under curve from x1 to x0 = (A/B) * (e^(B*x0) - e^(B*x1)) - Where x1 = x0 - deltaX (new supply after selling) ",
+					"params": {
+						"deltaX": "Number of tokens being sold",
+						"x0": "Current token supply before selling"
+					},
+					"returns": {
+						"deltaY": "Amount of ETH that will be received  Example: If selling 1000 tokens from supply of 10000: - x0 = 10000, deltaX = 1000 - x1 = 9000 (new supply after sale) - Returns ETH equivalent to area under curve between these points"
+					}
+				}
+			},
+			"stateVariables": {
+				"A": {
+					"details": "Immutable scaling factor that affects the overall price level"
+				},
+				"B": {
+					"details": "Immutable exponent coefficient - higher values = steeper price increases"
+				}
+			},
+			"title": "BondingCurve",
 			"version": 1
 		},
 		"userdoc": {
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"A()": {
+					"notice": "Base price multiplier parameter in the exponential curve"
+				},
+				"B()": {
+					"notice": "Growth rate parameter that controls curve steepness"
+				},
+				"constructor": {
+					"notice": "Constructor to set bonding curve parameters"
+				},
+				"getAmountOut(uint256,uint256)": {
+					"notice": "Calculate number of tokens that can be purchased with given ETH"
+				},
+				"getFundsReceived(uint256,uint256)": {
+					"notice": "Calculate ETH received when selling a specific amount of tokens"
+				}
+			},
 			"version": 1
 		}
 	},
@@ -124,11 +178,11 @@
 	},
 	"sources": {
 		"BondingCurve.sol": {
-			"keccak256": "0x08e531fb6f730576b33ce977abf8315c366efb14d7aa8754f569219de3790684",
+			"keccak256": "0xdd30ba46d17a4c7d15b88112a8844ff8e052ee0621e45cb72545a0d62396c53b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f6d6c3e8fe6ac963225092e4833d2bc368230687a5996b9bd3dbc0506f51eadd",
-				"dweb:/ipfs/QmchkqpiVvDGrY7TJ7SHsQHmm2qKxezYBxyCWsw9A1HH6q"
+				"bzz-raw://4caeed85503a48a3a79ea7f4d4c17a8622d8dcc50fea8a6bea7a4531d7d0ca16",
+				"dweb:/ipfs/QmbKNvCyjwgFgxwgb5CWGB9B4Vj8wtcnNqZG59gBDKdWYa"
 			]
 		},
 		"FixedPointMathLib.sol": {

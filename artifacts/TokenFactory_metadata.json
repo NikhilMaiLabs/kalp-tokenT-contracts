@@ -456,6 +456,7 @@
 			}
 		],
 		"devdoc": {
+			"details": "A factory contract that creates and manages tokens with bonding curve mechanics",
 			"errors": {
 				"FailedDeployment()": [
 					{
@@ -488,23 +489,126 @@
 					}
 				]
 			},
+			"events": {
+				"TokenCreated(address,uint256)": {
+					"details": "Emitted when a new token is created and enters funding phase"
+				},
+				"TokenLiqudityAdded(address,uint256)": {
+					"details": "Emitted when a token graduates and liquidity is added to Uniswap"
+				}
+			},
 			"kind": "dev",
 			"methods": {
+				"buy(address)": {
+					"details": "Allows users to buy tokens during the funding phase using ETH",
+					"params": {
+						"tokenAddress": "The address of the token to buy"
+					}
+				},
+				"claimFee()": {
+					"details": "Allows owner to withdraw accumulated fees"
+				},
+				"constructor": {
+					"details": "Constructor sets up the factory with all required external contract addresses",
+					"params": {
+						"_bondingCurve": "Address of bonding curve contract for pricing",
+						"_feePercent": "Fee percentage in basis points",
+						"_tokenImplementation": "Address of the token implementation for cloning",
+						"_uniswapV2Factory": "Address of Uniswap V2 factory for pair creation",
+						"_uniswapV2Router": "Address of Uniswap V2 router for liquidity operations"
+					}
+				},
+				"createToken(string,string)": {
+					"details": "Creates a new token using minimal proxy pattern",
+					"params": {
+						"name": "The name of the token (e.g., \"MyToken\")",
+						"symbol": "The ticker symbol of the token (e.g., \"MTK\")"
+					},
+					"returns": {
+						"_0": "The address of the newly created token contract"
+					}
+				},
 				"owner()": {
 					"details": "Returns the address of the current owner."
 				},
 				"renounceOwnership()": {
 					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
 				},
+				"sell(address,uint256)": {
+					"details": "Allows users to sell tokens back for ETH during funding phase",
+					"params": {
+						"amount": "The amount of tokens to sell",
+						"tokenAddress": "The address of the token to sell"
+					}
+				},
+				"setBondingCurve(address)": {
+					"details": "Updates the bonding curve contract address",
+					"params": {
+						"_bondingCurve": "New bonding curve contract address"
+					}
+				},
+				"setFeePercent(uint256)": {
+					"details": "Updates the fee percentage charged on transactions",
+					"params": {
+						"_feePercent": "New fee percentage in basis points"
+					}
+				},
 				"transferOwnership(address)": {
 					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
 				}
 			},
+			"stateVariables": {
+				"bondingCurve": {
+					"details": "Bonding curve contract for pricing during funding phase"
+				},
+				"collateral": {
+					"details": "Tracks ETH collateral collected for each token during funding phase"
+				},
+				"fee": {
+					"details": "Accumulated fees available for withdrawal by owner"
+				},
+				"feePercent": {
+					"details": "Fee percentage in basis points (e.g., 100 = 1%)"
+				},
+				"tokenImplementation": {
+					"details": "Implementation contract address for minimal proxy pattern"
+				},
+				"tokens": {
+					"details": "Maps token addresses to their current state in the lifecycle"
+				},
+				"uniswapV2Factory": {
+					"details": "Uniswap V2 factory address for creating pairs"
+				},
+				"uniswapV2Router": {
+					"details": "Uniswap V2 router address for adding liquidity"
+				}
+			},
+			"title": "TokenFactory",
 			"version": 1
 		},
 		"userdoc": {
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"buy(address)": {
+					"notice": "Uses bonding curve pricing, charges fees, and handles graduation to Uniswap"
+				},
+				"claimFee()": {
+					"notice": "Transfers all accumulated fees to the owner and resets fee counter"
+				},
+				"createToken(string,string)": {
+					"notice": "Uses OpenZeppelin Clones for gas-efficient token deployment"
+				},
+				"sell(address,uint256)": {
+					"notice": "Only available during FUNDING phase, uses bonding curve for pricing"
+				},
+				"setBondingCurve(address)": {
+					"notice": "Only owner can update this critical component"
+				},
+				"setFeePercent(uint256)": {
+					"notice": "Only owner can modify fees"
+				}
+			},
+			"notice": "This contract implements a token launch mechanism where:         1. Tokens start in FUNDING phase with bonding curve pricing         2. Once funding goal is reached, liquidity is added to Uniswap/QuickSwap         3. Tokens transition to TRADING phase on DEX",
 			"version": 1
 		}
 	},
@@ -683,11 +787,11 @@
 			]
 		},
 		"BondingCurve.sol": {
-			"keccak256": "0x08e531fb6f730576b33ce977abf8315c366efb14d7aa8754f569219de3790684",
+			"keccak256": "0xdd30ba46d17a4c7d15b88112a8844ff8e052ee0621e45cb72545a0d62396c53b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f6d6c3e8fe6ac963225092e4833d2bc368230687a5996b9bd3dbc0506f51eadd",
-				"dweb:/ipfs/QmchkqpiVvDGrY7TJ7SHsQHmm2qKxezYBxyCWsw9A1HH6q"
+				"bzz-raw://4caeed85503a48a3a79ea7f4d4c17a8622d8dcc50fea8a6bea7a4531d7d0ca16",
+				"dweb:/ipfs/QmbKNvCyjwgFgxwgb5CWGB9B4Vj8wtcnNqZG59gBDKdWYa"
 			]
 		},
 		"FixedPointMathLib.sol": {
@@ -699,19 +803,19 @@
 			]
 		},
 		"Token.sol": {
-			"keccak256": "0x0667d4acded4cc4bdf250ab8bfe2f4ce56ba9be8bdecf91b9ac6280e2bfe157f",
+			"keccak256": "0x9b5c7eef73cfc9849683b4b0060af53d1a11c86b93ff7fd93c49de1feeb59b98",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://031c8cfb36b0508db9e55b70a1fcd73e1ace0659b31f623be4aedd83e1098929",
-				"dweb:/ipfs/QmQkBSP6y5uK9uJPMxLkcGzpRZHjFiUbgwpSU8sqw1mSX1"
+				"bzz-raw://3064cbc7d8a85d5e5500bf21a8ba3bac37dd5f05001cebe3640f18f603c50055",
+				"dweb:/ipfs/QmVXmD5e9Q78JRVsHDkVEHMR6Fg9U1uiKdD1H2ei7HerJg"
 			]
 		},
 		"TokenFactory.sol": {
-			"keccak256": "0x7f94a52eabed310c88e7607d0c3582bc5c5d84a86b2c902e4729f3a4b3538df9",
+			"keccak256": "0xda1411b2f80967daf49ae2a4add26183a867fa0b9f076ac962a40c3d1dfa063f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4cd2c433737215c060c962448bc7f26ca86fb7f7f673416778004ec1a2ba2d6c",
-				"dweb:/ipfs/QmdppnTdnRjwfFVm2YKYN3FpunMkmjEuEUVkxmAMLo1qYJ"
+				"bzz-raw://4ebf10fb2b64de54f6f4e7a857e8c064e6241e063621ae688ada832960df428e",
+				"dweb:/ipfs/QmXpSHoXFXzeNfKLuLENW6wJRS3LeTc9HLStZjB27R8YKg"
 			]
 		}
 	},

@@ -466,6 +466,7 @@
 			}
 		],
 		"devdoc": {
+			"details": "A simple upgradeable ERC20 token contract with mint and burn functionality",
 			"errors": {
 				"ERC20InsufficientAllowance(address,uint256,uint256)": [
 					{
@@ -562,8 +563,29 @@
 				"balanceOf(address)": {
 					"details": "Returns the value of tokens owned by `account`."
 				},
+				"burn(address,uint256)": {
+					"details": "Burns tokens from a specified address",
+					"params": {
+						"amount": "The amount of tokens to burn (in wei units)",
+						"to": "The address from which tokens will be burned"
+					}
+				},
 				"decimals()": {
 					"details": "Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5.05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the default value returned by this function, unless it's overridden. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}."
+				},
+				"initialize(string,string)": {
+					"details": "Initializes the token contract with name and symbol",
+					"params": {
+						"name": "The name of the token (e.g., \"MyToken\")",
+						"symbol": "The symbol of the token (e.g., \"MTK\")"
+					}
+				},
+				"mint(address,uint256)": {
+					"details": "Mints new tokens to a specified address",
+					"params": {
+						"amount": "The amount of tokens to mint (in wei units)",
+						"to": "The address that will receive the newly minted tokens"
+					}
 				},
 				"name()": {
 					"details": "Returns the name of the token."
@@ -590,11 +612,23 @@
 					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
 				}
 			},
+			"title": "Token",
 			"version": 1
 		},
 		"userdoc": {
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"burn(address,uint256)": {
+					"notice": "Only the contract owner can call this functionThis decreases the total supply of tokensThe address must have sufficient balance for the burn to succeed"
+				},
+				"initialize(string,string)": {
+					"notice": "This function replaces the constructor in upgradeable contractsCan only be called once due to the initializer modifier"
+				},
+				"mint(address,uint256)": {
+					"notice": "Only the contract owner can call this functionThis increases the total supply of tokens"
+				}
+			},
+			"notice": "This contract inherits from OpenZeppelin's upgradeable contracts to support proxy patterns",
 			"version": 1
 		}
 	},
@@ -671,11 +705,11 @@
 			]
 		},
 		"Token.sol": {
-			"keccak256": "0x0667d4acded4cc4bdf250ab8bfe2f4ce56ba9be8bdecf91b9ac6280e2bfe157f",
+			"keccak256": "0x9b5c7eef73cfc9849683b4b0060af53d1a11c86b93ff7fd93c49de1feeb59b98",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://031c8cfb36b0508db9e55b70a1fcd73e1ace0659b31f623be4aedd83e1098929",
-				"dweb:/ipfs/QmQkBSP6y5uK9uJPMxLkcGzpRZHjFiUbgwpSU8sqw1mSX1"
+				"bzz-raw://3064cbc7d8a85d5e5500bf21a8ba3bac37dd5f05001cebe3640f18f603c50055",
+				"dweb:/ipfs/QmVXmD5e9Q78JRVsHDkVEHMR6Fg9U1uiKdD1H2ei7HerJg"
 			]
 		}
 	},
